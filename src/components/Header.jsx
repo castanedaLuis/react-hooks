@@ -15,7 +15,10 @@ function Header() {
         back.style.backgroundColor=status?'#000':'#fff';
         const header = document.querySelector('.header');
         header.style.backgroundColor=status?'#fff':'rgb(0, 128, 255)';
+        const headerTitulo = document.querySelector('.headerTitulo');
+        headerTitulo.style.color=status?'#000':'#fff';
     }
+
   return (
     <>
     <div className='header'>

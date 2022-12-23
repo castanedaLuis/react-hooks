@@ -1,9 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import '../styles/characters.css'
+
+const initialState = {
+    favorites: []
+}
+
+const favoriteReducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_FAVORITE':
+            return {
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            };
+        default:
+            return state;
+    }
+}
 
 function Characters() {
 
     const [characters, setCharacters] = useState([]);
+    const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
+
+    const handleClickFavorito = (favorite) => {
+        dispatch({ type: 'ADD_FAVORITE', payload: favorite });
+    }
 
     useEffect(() => {
         fetch('https://rickandmortyapi.com/api/character/')
@@ -16,15 +37,33 @@ function Characters() {
 
     return (
         <>
+            <div className="containerCardsFavorites">
+                <h3>Tus Favoritos</h3>
+                <div className='containersFavorites'>
+                    {
+                        favorites.favorites.map(fav => (
+                            <>
+                                <div className='characterFav' key={fav.id}>
+                                    <img className='imagen' src={fav.image} alt={fav.name} />
+                                    <h2 className='nombre'>{fav.name}</h2>
+                                    <p className='gender'>{fav.gender}</p>
+                                    <p className='status'>{fav.status}</p>
+                                    <button className='btnLike' onClick={() => handleClickFavorito(fav)}></button>
+                                </div>
+                            </>
+                        ))
+                    }
+                </div>
+            </div>
             <div className="containerCards">
                 {characters.map(character => (
                     <>
-                        <div className='character'>
+                        <div className='character' key={character.id}>
                             <img className='imagen' src={character.image} alt={character.name} />
                             <h2 className='nombre'>{character.name}</h2>
                             <p className='gender'>{character.gender}</p>
                             <p className='status'>{character.status}</p>
-                            <button className='btnLike'></button>
+                            <button className='btnLike' onClick={() => handleClickFavorito(character)}></button>
                         </div>
                     </>
                 ))}
