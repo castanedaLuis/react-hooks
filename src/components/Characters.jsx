@@ -1,6 +1,7 @@
 import React, 
-    { useState, useEffect, useReducer, useMemo, useRef } from 'react'
+    { useState, useEffect, useReducer, useMemo, useRef, useCallback } from 'react'
 import '../styles/characters.css'
+import Seacrh from './Seacrh';
 
 const initialState = {
     favorites: []
@@ -28,15 +29,18 @@ function Characters() {
     const handleClickFavorito = (favorite) => {
         dispatch({ type: 'ADD_FAVORITE', payload: favorite });
     }
-    const handleSearch = () => {
+    // const handleSearch = () => {
+    //     setBusqueda(searchInput.current.value)
+    // }
+    const handleSearchCallback = useCallback(() => {
         setBusqueda(searchInput.current.value)
-
-    }
+    },[])
 
     //Función sin useMemo
-    const filterUsers = characters.filter((user) => {
-        return user.name.toLowerCase().includes(busqueda.toLowerCase());
-    })
+    // const filterUsers = characters.filter((user) => {
+    //     return user.name.toLowerCase().includes(busqueda.toLowerCase());
+    // })
+    
     //Función con useMemo
     const filterUseMemo = useMemo(() =>
         characters.filter((user) => {
@@ -77,12 +81,10 @@ function Characters() {
             </div>
 
             <div className='searchContainer'>
-                <input 
-                    className='inputSearch' 
-                    type='text' value={busqueda} 
-                    onChange={handleSearch} 
-                    placeholder='Busacador' 
-                    ref={searchInput}
+                <Seacrh 
+                    busqueda={busqueda}
+                    searchInput={searchInput}
+                    handleSearch={handleSearchCallback}
                 />
                 <div className='containerSearchCards'>
                     {busqueda!== '' && filterUseMemo.map(character => (
