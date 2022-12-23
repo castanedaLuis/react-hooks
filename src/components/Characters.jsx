@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import '../styles/characters.css'
 
 function Characters() {
 
@@ -15,13 +16,16 @@ function Characters() {
 
     return (
         <>
-            <div className="Characters">
+            <div className="containerCards">
                 {characters.map(character => (
                     <>
-                        <img src={character.image} alt={character.name} />
-                        <h2>{character.name}</h2>
-                        <p>{character.gender}</p>
-                        <p>{character.status}</p>
+                        <div className='character'>
+                            <img className='imagen' src={character.image} alt={character.name} />
+                            <h2 className='nombre'>{character.name}</h2>
+                            <p className='gender'>{character.gender}</p>
+                            <p className='status'>{character.status}</p>
+                            <button className='btnLike'></button>
+                        </div>
                     </>
                 ))}
             </div>

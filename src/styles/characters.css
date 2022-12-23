@@ -1,0 +1,57 @@
+
+
+.containerCards{
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap: 40px;
+    background-color: rgb(240, 242, 240);
+}
+
+.character{
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+
+}
+
+.imagen{
+    width: 100%;
+}
+.nombre, .gender, .status{
+    margin: 0;
+}
+.nombre{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.gender, .status{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.gender{
+    font-size: 19px;
+}
+
+.btnLike{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    top: 80px;
+}
+.character:hover .btnLike{
+    opacity: 1;
+}
+.btnLike::after{
+    content: '❤️';
+
+}

@@ -6,7 +6,6 @@ function App() {
     <div className="App">
       <Header />
       <Characters />
-      hola mundo
     </div>
   );
 }

@@ -1,0 +1,24 @@
+
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 128, 255);
+}
+.headerTitulo{
+    font-size: 24px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 40px;
+}
+.headerButton{
+    height: 40px;
+    padding: 0px;
+    width: 154px;
+    border-radius: 20px;
+    border: black 1px solid;
+    margin-right: 40px;
+    cursor: pointer;
+    background-color: transparent;
+}
