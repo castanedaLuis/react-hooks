@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, useMemo } from 'react'
 import '../styles/characters.css'
 
 const initialState = {
@@ -20,11 +20,28 @@ const favoriteReducer = (state, action) => {
 function Characters() {
 
     const [characters, setCharacters] = useState([]);
+    const [busqueda, setBusqueda] = useState('');
     const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
 
     const handleClickFavorito = (favorite) => {
         dispatch({ type: 'ADD_FAVORITE', payload: favorite });
     }
+    const handleSearch = (event) => {
+        setBusqueda(event.target.value)
+    }
+
+    //Función sin useMemo
+    const filterUsers = characters.filter((user) => {
+        return user.name.toLowerCase().includes(busqueda.toLowerCase());
+    })
+    //Función con useMemo
+    const filterUseMemo = useMemo(() =>
+        characters.filter((user) => {
+            return user.name.toLowerCase().includes(busqueda.toLowerCase());
+        }),
+        [characters,busqueda]
+    )
+
 
     useEffect(() => {
         fetch('https://rickandmortyapi.com/api/character/')
@@ -55,6 +72,24 @@ function Characters() {
                     }
                 </div>
             </div>
+
+            <div className='searchContainer'>
+                <input className='inputSearch' type='text' value={busqueda} onChange={handleSearch} placeholder='Busacador' />
+                <div className='containerSearchCards'>
+                    {busqueda!== '' && filterUseMemo.map(character => (
+                        <>
+                            <div className='character' key={character.id}>
+                                <img className='imagen' src={character.image} alt={character.name} />
+                                <h2 className='nombre'>{character.name}</h2>
+                                <p className='gender'>{character.gender}</p>
+                                <p className='status'>{character.status}</p>
+                                <button className='btnLike' onClick={() => handleClickFavorito(character)}></button>
+                            </div>
+                        </>
+                    ))}
+                </div>
+            </div>
+
             <div className="containerCards">
                 {characters.map(character => (
                     <>

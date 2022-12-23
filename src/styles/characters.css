@@ -24,6 +24,19 @@
     gap: 20px;
     background-color: rgb(240, 242, 240);
 }
+.searchContainer{
+    margin-top: 50px !important;
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap:wrap;
+    gap: 20px;
+    background-color: transparent;
+}
 
 .containerCards{
     width: 100%;
@@ -56,6 +69,18 @@
     align-items: center;
     width: 180px;
 }
+.containerSearchCards{
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap:wrap;
+    gap: 20px;
+    background-color: transparent;
+}
 
 .imagen{
     width: 100%;
@@ -86,5 +111,11 @@
 }
 .btnLike::after{
     content: '❤️';
+}
 
+.inputSearch{
+    width: 250px;
+    border-radius:30px;
+    border: 1px solid #000;
+    padding: 10px;
 }
