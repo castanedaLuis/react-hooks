@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react'
+import React, 
+    { useState, useEffect, useReducer, useMemo, useRef } from 'react'
 import '../styles/characters.css'
 
 const initialState = {
@@ -22,12 +23,14 @@ function Characters() {
     const [characters, setCharacters] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
+    const searchInput = useRef(null);
 
     const handleClickFavorito = (favorite) => {
         dispatch({ type: 'ADD_FAVORITE', payload: favorite });
     }
-    const handleSearch = (event) => {
-        setBusqueda(event.target.value)
+    const handleSearch = () => {
+        setBusqueda(searchInput.current.value)
+
     }
 
     //Función sin useMemo
@@ -74,7 +77,13 @@ function Characters() {
             </div>
 
             <div className='searchContainer'>
-                <input className='inputSearch' type='text' value={busqueda} onChange={handleSearch} placeholder='Busacador' />
+                <input 
+                    className='inputSearch' 
+                    type='text' value={busqueda} 
+                    onChange={handleSearch} 
+                    placeholder='Busacador' 
+                    ref={searchInput}
+                />
                 <div className='containerSearchCards'>
                     {busqueda!== '' && filterUseMemo.map(character => (
                         <>
