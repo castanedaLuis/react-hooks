@@ -1,7 +1,8 @@
 import React, 
-    { useState, useEffect, useReducer, useMemo, useRef, useCallback } from 'react'
+    { useState, useReducer, useMemo, useRef, useCallback } from 'react'
 import '../styles/characters.css'
 import Seacrh from './Seacrh';
+import useCharacters from '../hooks/useCharacters';
 
 const initialState = {
     favorites: []
@@ -19,12 +20,17 @@ const favoriteReducer = (state, action) => {
     }
 }
 
+const API = 'https://rickandmortyapi.com/api/character/'
+
 function Characters() {
 
-    const [characters, setCharacters] = useState([]);
     const [busqueda, setBusqueda] = useState('');
     const [favorites, dispatch] = useReducer(favoriteReducer, initialState)
     const searchInput = useRef(null);
+
+    //custom Hooks
+    const characters = useCharacters(API)
+
 
     const handleClickFavorito = (favorite) => {
         dispatch({ type: 'ADD_FAVORITE', payload: favorite });
@@ -40,7 +46,7 @@ function Characters() {
     // const filterUsers = characters.filter((user) => {
     //     return user.name.toLowerCase().includes(busqueda.toLowerCase());
     // })
-    
+
     //Función con useMemo
     const filterUseMemo = useMemo(() =>
         characters.filter((user) => {
@@ -49,15 +55,6 @@ function Characters() {
         [characters,busqueda]
     )
 
-
-    useEffect(() => {
-        fetch('https://rickandmortyapi.com/api/character/')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.results);
-                setCharacters(data.results)
-            });
-    }, []);
 
     return (
         <>
